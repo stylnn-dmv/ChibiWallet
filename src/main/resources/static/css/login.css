@@ -17,10 +17,10 @@ body{
     justify-content: center;
     align-items: center;
 
-    background:url("../images/xp-login.png") center center/cover no-repeat;
-
-
-
+    background-image: url("../images/xp-login.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .login-form {
@@ -33,7 +33,7 @@ body{
 form {
     text-align:center;
     font-size:xx-large;
-    background: #6488cd;
+    background: #1647bf;
     border-radius: 10px;
     padding: 10px;
     margin: 20px;
