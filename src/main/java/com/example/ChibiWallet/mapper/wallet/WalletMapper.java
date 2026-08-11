@@ -12,7 +12,7 @@ public class WalletMapper {
         }
 
 
-        WalletDto.builder()
+       return WalletDto.builder()
                 .id(wallet.getId())
                 .owner(wallet.getOwner())
                 .status(wallet.getStatus())
