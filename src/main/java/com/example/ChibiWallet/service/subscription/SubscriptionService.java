@@ -39,7 +39,7 @@ public class SubscriptionService {
                 .build();
 
         subscriptionRepository.save(subscription);
-        return  subscription;
+        return subscription;
     }
 
 }
