@@ -11,7 +11,6 @@ public class WalletMapper {
             return null;
         }
 
-
        return WalletDto.builder()
                 .id(wallet.getId())
                 .owner(wallet.getOwner())
