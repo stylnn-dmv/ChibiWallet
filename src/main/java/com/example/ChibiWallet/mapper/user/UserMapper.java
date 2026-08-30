@@ -6,6 +6,7 @@ import com.example.ChibiWallet.model.dto.subscription.SubscriptionDto;
 import com.example.ChibiWallet.model.dto.user.UserDto;
 import com.example.ChibiWallet.model.dto.user.UserRegisterRequest;
 import com.example.ChibiWallet.model.dto.wallet.WalletDto;
+import com.example.ChibiWallet.model.entity.user.EditUserRequest;
 import com.example.ChibiWallet.model.entity.user.User;
 import com.example.ChibiWallet.model.entity.user.UserRole;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,22 @@ import java.util.List;
 
 @NoArgsConstructor
 public class UserMapper {
+
+    public static User toEntity(UserDto userDto) {
+        return User.builder()
+                .id(userDto.getId())
+                .username(userDto.getUsername())
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
+                .profilePicture(userDto.getProfilePicture())
+                .email(userDto.getEmail())
+                .country(userDto.getCountry())
+                .role(userDto.getRole())
+                .isActive(userDto.isActive())
+                .createdOn(userDto.getCreatedOn())
+                .updatedOn(userDto.getUpdatedOn())
+                .build();
+    }
 
     public static User toUserEntity(UserRegisterRequest userRegisterRequest){
         if(userRegisterRequest == null){
@@ -66,4 +83,5 @@ public class UserMapper {
 
 
     }
+
 }

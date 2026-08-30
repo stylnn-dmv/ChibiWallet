@@ -1,26 +1,453 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Menu</h1>-->
+
+<!--    <h1>Welcome, <span th:text = "${username}"></span></h1>-->
+<!--    <a href = "/main?logout">Log out</a>-->
+<!--    <nav>-->
+<!--        <ul>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/home">Home</a> </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/transactions">Transactions</a></li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link"href="/balance">Balance</a></li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/history">History</a></li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+
+<!--    <h2 class="profile-name" th:text = "${user.getUsername()}"></h2>-->
+<!--    <p class="active-profile" th:text = "${user.isActive() ? 'ACTIVE' : 'INACTIVE'}" > </p>-->
+<!--    <strong>User id:</strong>-->
+<!--    <p th:text="${user.getId()}"> </p>-->
+<!--    <p th:text = "${user.getEmail()}"></p>-->
+<!--    <p th:text = "${user.getCountry()}"></p>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Menu</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <h1>Welcome, <span th:text = "${username}"></span></h1>
-    <a href = "/main?logout">Log out</a>
-    <nav>
-        <ul>
-            <li class="nav-item">
-                <a class="nav-link" href="/home">Home</a> </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/transactions">Transactions</a></li>
-            <li class="nav-item">
-                <a class="nav-link"href="/balance">Balance</a></li>
-            <li class="nav-item">
-                <a class="nav-link" href="/history">History</a></li>
-        </ul>
-    </nav>
+    <title>Chibi Wallet - Home</title>
+
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+
+    <header class="top-bar">
+
+        <div class="brand">
+
+            <span class="cloud">☁</span>
+
+            <h1>Chibi Wallet</h1>
+
+        </div>
+
+        <div class="version">
+            v1.0.0
+        </div>
+
+    </header>
+
+
+
+    <div class="app-layout">
+
+
+
+
+        <aside class="sidebar">
+
+            <div class="menu-title">
+                Menu
+            </div>
+
+            <nav>
+
+                <a href="/home" class="nav-link active">
+                    <span>⌂</span>
+                    Home
+                </a>
+
+                <a href="/transactions" class="nav-link">
+                    <span>↔</span>
+                    Transactions
+                </a>
+
+                <a href="/balance" class="nav-link">
+                    <span>◉</span>
+                    Balance
+                </a>
+
+                <a href="/history" class="nav-link">
+                    <span>◷</span>
+                    History
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+
+                <div class="footer-cloud">
+                    ☁
+                </div>
+
+                <h3>Save smart,</h3>
+
+                <p>
+                    live happy ✨
+                </p>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+
+
+
+
+            <section class="welcome-section">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        DASHBOARD
+                    </p>
+
+                    <h2>
+                        Welcome back,
+                        <span th:text="${user.getUsername()}">
+                            User
+                        </span>
+
+                    </h2>
+
+                    <p class="welcome-text">
+                        Here's your Chibi Wallet overview.
+                    </p>
+
+                </div>
+
+
+                <a href="/main?logout" class="logout-button">
+                    Log out →
+                </a>
+
+            </section>
+
+            <section class="dashboard-grid">
+
+
+                <article class="panel profile-panel">
+
+                    <div class="panel-header">
+                        <h2>Profile</h2>
+                        <span class="little-cloud">☁</span>
+                    </div>
+
+
+                    <div class="profile-avatar">
+
+                        <span th:text="${#strings.substring(user.getUsername(), 0, 1)}">
+                            U
+                        </span>
+
+                    </div>
+
+
+                    <h2 class="username"
+                        th:text="${user.getUsername()}">
+                        Username
+                    </h2>
+
+
+                    <p class="status"
+                       th:classappend="${user.isActive()} ? 'status-active' : 'status-inactive'"
+                       th:text="${user.isActive()} ? 'ACTIVE' : 'INACTIVE'">
+                    </p>
+
+
+                    <div class="profile-info">
+
+
+                        <div class="info-item">
+
+                            <span class="info-icon">♟</span>
+
+                            <div>
+
+                                <span class="info-label">
+                                    Username
+                                </span>
+
+                                <strong th:text="${user.getUsername()}">
+                                    Username
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span class="info-icon">✉</span>
+
+                            <div>
+
+                                <span class="info-label">
+                                    Email
+                                </span>
+
+                                <strong th:text="${user.getEmail()}">
+                                    Email
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span class="info-icon">🌍</span>
+
+                            <div>
+
+                                <span class="info-label">
+                                    Country
+                                </span>
+
+                                <strong th:text="${user.getCountry()}">
+                                    Country
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span class="info-icon">#</span>
+
+                            <div>
+
+                                <span class="info-label">
+                                    User ID
+                                </span>
+
+                                <strong th:text="${user.getId()}">
+                                    ID
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="profile-actions">
+                        <a th:href="@{users/{id}/profile(id=${user.getId()})}" class="edit-profile-button" >
+                            ✎ Edit Profile
+                        </a>
+                    </div>
+
+                </article>
+
+
+                <div class="right-column">
+
+                    <article class="panel wallet-panel">
+
+                        <div class="panel-header">
+
+                            <h2>My Wallet</h2>
+
+                            <span class="little-cloud">
+                                ☁
+                            </span>
+
+                        </div>
+
+
+                        <div class="wallet-box">
+
+                            <span class="wallet-cloud cloud-left">
+                                ☁
+                            </span>
+
+                            <span class="wallet-cloud cloud-right">
+                                ☁
+                            </span>
+
+
+                            <div class="wallet-content">
+
+                                <p>
+                                    CHIBI WALLET
+                                </p>
+
+                                <h2>
+                                    Your money,
+                                    <br>
+                                    your way.
+                                </h2>
+
+                                <span>
+                                    Keep track of your finances.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="wallet-buttons">
+
+                            <a href="/balance"
+                               class="primary-button">
+
+                                View Balance
+
+                            </a>
+
+
+                            <a href="/transactions"
+                               class="secondary-button">
+
+                                Transactions
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="panel quick-panel">
+
+                        <div class="panel-header">
+
+                            <h2>Quick Links</h2>
+
+                            <span class="little-cloud">
+                                ✦
+                            </span>
+
+                        </div>
+
+
+                        <div class="quick-links">
+
+
+                            <a href="/transactions"
+                               class="quick-link">
+
+                                <div class="quick-icon">
+                                    ↔
+                                </div>
+
+                                <div>
+
+                                    <h3>Transactions</h3>
+
+                                    <p>
+                                        View your activity
+                                    </p>
+
+                                </div>
+
+                            </a>
+
+
+                            <a href="/balance"
+                               class="quick-link">
+
+                                <div class="quick-icon">
+                                    ◉
+                                </div>
+
+                                <div>
+
+                                    <h3>Balance</h3>
+
+                                    <p>
+                                        Check your wallet
+                                    </p>
+
+                                </div>
+
+                            </a>
+
+
+                            <a href="/history"
+                               class="quick-link">
+
+                                <div class="quick-icon">
+                                    ◷
+                                </div>
+
+                                <div>
+
+                                    <h3>History</h3>
+
+                                    <p>
+                                        Previous activity
+                                    </p>
+
+                                </div>
+
+                            </a>
+
+
+                        </div>
+
+                    </article>
+
+                    <div class="chibi-message">
+
+                        <span>
+                            ✦ ☁ ✦
+                        </span>
+
+                        <p>
+                            Your Chibi Wallet is ready to use!
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
 
 </body>
+
 </html>

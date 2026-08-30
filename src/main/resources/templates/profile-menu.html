@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile | Chibi Wallet</title>
+
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+
+    <header class="top-bar">
+
+        <div class="brand">
+            <span class="cloud">☁</span>
+            <h1>Chibi Wallet</h1>
+        </div>
+
+        <a href="/home" class="back-button">
+            ← Back to Dashboard
+        </a>
+
+    </header>
+
+
+    <!--main tab-->
+    <main class="profile-page">
+
+        <div class="page-title">
+            <p>ACCOUNT SETTINGS</p>
+            <h2>Your Profile</h2>
+            <span>Manage your personal information.</span>
+        </div>
+
+
+        <!--profile-->
+        <section class="profile-card">
+
+            <div class="profile-header">
+
+                <div class="profile-avatar">
+                    <span th:text="${user.username.substring(0,1).toUpperCase()}">S</span>
+                </div>
+
+                <div class="profile-name">
+                    <h2 th:text="${user.username}">Username</h2>
+
+                    <span class="status status-active">
+                        ACTIVE
+                    </span>
+                </div>
+
+            </div>
+
+
+
+            <form th:action="@{/users/{id}/profile(id=${user.getId()})}"
+                  th:object="${user}"
+                  th:method="PUT">
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+                        <label for="username">
+                            Username
+                        </label>
+
+                        <input
+                                type="text"
+                                id="username"
+                                th:field="*{getUsername()}"
+                                placeholder="Enter username"
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                                type="email"
+                                id="email"
+                                th:field="*{getEmail()}"
+                                placeholder="Enter email"
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="country">
+                            Country
+                        </label>
+
+                        <select id="country"
+                                th:field="*{country}">
+
+                            <option value="">
+                                Select your country
+                            </option>
+
+                            <option
+                                    th:each="country : ${country}"
+                                    th:value="${country}"
+                                    th:text="${country}">
+                            </option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            User ID
+                        </label>
+
+                        <input
+                                type="text"
+                                th:value="${user.id}"
+                                disabled
+                        >
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="profilePictureUrl">
+                        Profile Picture URL
+                    </label>
+
+                    <input
+                            type="url"
+                            id="profilePictureUrl"
+                            th:field="*{getProfilePicture()}"
+                            placeholder="file:///C:/Users/stili/Downloads/image-profile-default.jpg"
+                    >
+                </div>
+
+
+                <!--buttons-->
+                <div class="form-actions">
+
+                    <a href="/home" class="cancel-button">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="save-button">
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

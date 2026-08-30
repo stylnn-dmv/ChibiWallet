@@ -16,25 +16,25 @@
 
 <div class = "login-containter">
     <h1>Login</h1>
-<form th:action="@{/}" method="post">
+<form class ="form"  th:action = "@{/login}" th:object = "${userLoginData}" method="post">
     <div>
         <label for="username">Username</label>
         <input id="username"
                type="text"
                name="username"
-               required
-        >
+               th:field = "*{username}" required>
     </div>
     <label for="password">Password</label>
     <input id="password"
            type="password"
            name="password"
-           required
-        >
+           th:field = "*{password}" required>
 
     <br>
 
     <button type="submit">Log in</button>
+    <p class ="form-already">Don't have an account?
+        <a href="/register">Register now</a>!</p>
 </form>
 </div>
 

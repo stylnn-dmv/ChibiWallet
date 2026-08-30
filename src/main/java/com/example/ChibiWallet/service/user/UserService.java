@@ -5,6 +5,7 @@ import com.example.ChibiWallet.model.dto.user.UserDto;
 import com.example.ChibiWallet.model.dto.user.UserLoginRequest;
 import com.example.ChibiWallet.model.dto.user.UserRegisterRequest;
 import com.example.ChibiWallet.model.entity.subscription.Subscription;
+import com.example.ChibiWallet.model.entity.user.EditUserRequest;
 import com.example.ChibiWallet.model.entity.user.User;
 
 import com.example.ChibiWallet.model.entity.wallet.Wallet;
@@ -12,17 +13,21 @@ import com.example.ChibiWallet.repository.user.UserRepository;
 import com.example.ChibiWallet.service.subscription.SubscriptionService;
 import com.example.ChibiWallet.service.wallet.WalletService;
 import jakarta.transaction.Transactional;
+import org.springframework.boot.actuate.info.EnvironmentInfoContributor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
 @Transactional
+
 public class UserService {
+
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private SubscriptionService subscriptionService;
@@ -34,6 +39,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.subscriptionService = subscriptionService;
         this.walletService = walletService;
+
     }
     public UserDto login(UserLoginRequest userLoginRequest){
             Optional<User> optionalUser = userRepository.findByUsername(userLoginRequest.getUsername());
@@ -68,5 +74,23 @@ public class UserService {
 
     public List<UserDto> findAll(){
         return userRepository.findAll().stream().map(UserMapper::toUserDto).toList();
+    }
+
+    public UserDto findById(String id) {
+        User user = userRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("User not found!"));
+        return UserMapper.toUserDto(user);
+    }
+
+    public UserDto update(String id, EditUserRequest editUserRequest) {
+        User entity = userRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("User not found!"));
+
+        entity.setFirstName(editUserRequest.getFirstName());
+        entity.setLastName(editUserRequest.getLastName());
+        entity.setEmail(editUserRequest.getEmail());
+        entity.setProfilePicture(editUserRequest.getProfilePicture());
+
+
+        User updatedUser = userRepository.save(entity);
+        return UserMapper.toUserDto(updatedUser);
     }
 }

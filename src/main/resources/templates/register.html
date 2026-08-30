@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register</title>
+
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <div class="register-card">
+
+        <h1>Create Account</h1>
+        <p class="subtitle">Join us and create your account</p>
+
+        <form th:action="@{/register}" th:object="${userRegisterRequest}" th:method="post">
+
+            <div class="input-group">
+                <label for="username">Username</label>
+
+                <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        th:field="*{username}"
+                        placeholder="Enter your username"
+                        required>
+            </div>
+
+
+            <div class="input-group">
+                <label for="password">Password</label>
+
+                <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        th:field="*{password}"
+                        placeholder="Enter your password"
+                        required>
+            </div>
+
+
+            <div class="input-group">
+                <label for="confirmPassword">Confirm Password</label>
+
+                <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Confirm your password"
+                        required>
+            </div>
+
+
+            <div>
+
+                <label for="country">Country</label>
+                <select id="country" th:field="${countries}">
+                    <option th:each="country: ${countries}"
+                            th:value="${country}"
+                            th:text="${country}">
+                    </option>
+                </select>
+
+            </div>
+
+            <button type="submit">
+                Create Account
+            </button>
+            <p class="login-link">
+                Already have an account?
+                <a th:href="@{/login}">Login</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

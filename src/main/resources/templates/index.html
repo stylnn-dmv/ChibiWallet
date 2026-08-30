@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chibi Wallet</title>
+
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+
+<body>
+
+<header></header>
+
+<main>
+
+    <section class="welcome-container">
+
+        <div class="character-container">
+
+            <img
+                    src="/images/bailando.png"
+                    alt="Chibi Character"
+                    class="character">
+
+        </div>
+
+
+        <div class="content-container">
+
+            <h1>Welcome to Chibi Wallet</h1>
+
+            <p>
+                Manage your money simply and securely.
+            </p>
+
+
+            <div class="button-container">
+
+                <a th:href="@{/login}" class="login-button">
+                    Login
+                </a>
+
+                <a th:href="@{/register}" class="register-button">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer></footer>
+
+</body>
+</html>

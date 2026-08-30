@@ -10,6 +10,7 @@ import lombok.Value;
 
 @Data
 @Builder
+
 public class UserRegisterRequest {
 
     @Size(min=6, message = "Username must be at least 6 characters")

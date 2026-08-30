@@ -1,0 +1,304 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body {
+    min-height: 100vh;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+            radial-gradient(
+                    circle at 15% 20%,
+                    rgba(255, 255, 255, 0.18),
+                    transparent 25%
+            ),
+            radial-gradient(
+                    circle at 80% 80%,
+                    rgba(255, 255, 255, 0.08),
+                    transparent 30%
+            ),
+            linear-gradient(
+                    135deg,
+                    #738bc0,
+                    #566fa8
+            );
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 70px;
+
+    background: #203f8f;
+
+    border-bottom:
+            2px solid rgba(255, 255, 255, 0.25);
+
+    box-shadow:
+            0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 52px;
+
+    background: #203f8f;
+
+    border-top:
+            2px solid rgba(255, 255, 255, 0.25);
+}
+
+
+
+
+.register-container {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    z-index: 1;
+}
+
+
+
+.register-card {
+    width: 100%;
+    max-width: 460px;
+
+    text-align: center;
+
+    animation:
+            fadeIn 0.6s ease;
+}
+
+
+
+
+.register-card h1 {
+    font-size: 36px;
+
+    color: #17233d;
+
+    margin-bottom: 8px;
+
+    text-shadow:
+            0 1px 2px rgba(255, 255, 255, 0.25);
+}
+
+.subtitle {
+    font-size: 14px;
+
+    color: #24304a;
+
+    margin-bottom: 25px;
+}
+
+
+
+
+.register-card form {
+    background:
+            rgba(39, 70, 150, 0.88);
+
+    padding: 30px 35px;
+
+    border-radius: 9px;
+
+    box-shadow:
+            0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    margin-bottom: 17px;
+}
+
+.input-group label,
+form > div:not(.input-group) label {
+    color: white;
+
+    font-size: 16px;
+
+    margin-bottom: 7px;
+}
+
+
+
+.input-group input,
+form > div:not(.input-group) select {
+    width: 100%;
+
+    height: 40px;
+
+    padding: 8px 12px;
+
+    border: none;
+
+    border-radius: 4px;
+
+    outline: none;
+
+    background: #f1f1f1;
+
+    color: #222;
+
+    font-size: 15px;
+
+    font-family: Arial, sans-serif;
+
+    transition: 0.2s ease;
+}
+
+.input-group input:focus,
+form > div:not(.input-group) select:focus {
+    background: white;
+
+    box-shadow:
+            0 0 0 3px
+            rgba(255, 255, 255, 0.2);
+}
+
+
+
+form > div:not(.input-group) {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    margin-bottom: 20px;
+}
+
+form > div:not(.input-group) select {
+    cursor: pointer;
+}
+
+
+
+
+button {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background: #e9e9e9;
+
+    color: #17233d;
+
+    font-family: Georgia, serif;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    transition:
+            transform 0.2s ease,
+            background 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+button:hover {
+    background: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+            0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+
+
+.login-link {
+    margin-top: 20px;
+
+    color: white;
+
+    font-size: 15px;
+}
+
+.login-link a {
+    color: #a9c5ff;
+
+    font-size: 16px;
+
+    margin-left: 5px;
+
+    text-decoration: underline;
+
+    transition: 0.2s ease;
+}
+
+.login-link a:hover {
+    color: white;
+}
+
+
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+
+
+
