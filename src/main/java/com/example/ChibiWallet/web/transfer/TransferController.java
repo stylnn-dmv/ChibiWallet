@@ -48,9 +48,7 @@ public class TransferController {
             return mav;
         }
 
-
-
         TransactionDto transaction = walletService.transferFunds(user,transferRequest);
-        return new ModelAndView("redirect:/transactions/" + transaction.getId());
+        return new ModelAndView("redirect:/transactions/" + transaction.getUuid());
     }
 }

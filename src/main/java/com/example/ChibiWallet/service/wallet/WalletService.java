@@ -96,11 +96,12 @@ public class WalletService {
         }
 
         Wallet wallet = optionalWallet.get();
+
         if (wallet.getStatus().equals(WalletStatus.INACTIVE)) {
             return transactionService.createNewTransaction(
                     wallet.getOwner(),
                     wallet.getId().toString(),
-                    "Some Receiver",
+                    user.getUsername(),
                     amount,
                     wallet.getBalance(),
                     wallet.getCurrency(),
@@ -110,11 +111,11 @@ public class WalletService {
                     "Wallet is inactive"
             );
         }
-        if (wallet.getBalance().compareTo(amount) <= 0) {
+        if (wallet.getBalance().compareTo(amount) < 0) {
             return transactionService.createNewTransaction(
                     wallet.getOwner(),
                     wallet.getId().toString(),
-                    "Some Receiver",
+                    user.getUsername(),
                     amount,
                     wallet.getBalance(),
                     wallet.getCurrency(),
@@ -130,7 +131,7 @@ public class WalletService {
 
         return transactionService.createNewTransaction(wallet.getOwner(),
                 wallet.getId().toString(),
-                "Some Receiver",
+                user.getUsername(),
                 amount,
                 wallet.getBalance(),
                 wallet.getCurrency(),
@@ -147,7 +148,7 @@ public class WalletService {
         Wallet senderWallet = walletRepository.findById(transferRequest.getFromWalletsId())
                 .orElseThrow(() -> new RuntimeException("Wallet with id %s not found".formatted(transferRequest.getFromWalletsId())));
 
-        Optional<Wallet> receiver = walletRepository.findAllByOwnerUsername(transferRequest.getToUsername())
+        Optional<Wallet> receiver = walletRepository.findAllByOwner_Username(transferRequest.getToUsername())
                 .stream()
                 .filter(wallet -> wallet.getStatus().equals(WalletStatus.ACTIVE))
                 .findFirst();
@@ -191,7 +192,7 @@ public class WalletService {
                 receiverWallet.getCurrency(),
                 TransactionType.DEPOSIT,
                 TransactionStatus.SUCCEEDED,
-                "Transfer to %s succeeded.".formatted(transferRequest.getToUsername()),
+                "Transfer to %s.".formatted(transferRequest.getToUsername()),
                 null
         );
         return TransactionMapper.toDto(transaction);

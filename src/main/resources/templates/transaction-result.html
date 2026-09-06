@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chibi Wallet - Transaction Result</title>
+
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/transaction-result.css}">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <header class="top-bar">
+
+        <div class="brand">
+            <span class="cloud">☁</span>
+            <h1>Chibi Wallet</h1>
+        </div>
+
+        <div class="version">
+            v1.0.0
+        </div>
+
+    </header>
+
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+
+            <div class="menu-title">
+                Menu
+            </div>
+
+            <nav>
+
+                <a href="/home" class="nav-link">
+                    <span>⌂</span>
+                    Home
+                </a>
+
+                <a href="/wallets" class="nav-link">
+                    <span>▣</span>
+                    Wallets
+                </a>
+
+                <a href="/transfers" class="nav-link">
+                    <span>↔</span>
+                    Transfers
+                </a>
+
+                <a href="/transactions" class="nav-link">
+                    <span>↕</span>
+                    Transactions
+                </a>
+
+                <a href="/balance" class="nav-link">
+                    <span>◉</span>
+                    Balance
+                </a>
+
+                <a href="/subscriptions/history" class="nav-link">
+                    <span>◷</span>
+                    Subscription History
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+
+                <div class="footer-cloud">
+                    ☁
+                </div>
+
+                <h3>Save smart,</h3>
+
+                <p>
+                    live happy ✨
+                </p>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+
+            <section class="transaction-result-section">
+
+                <div class="transaction-result-card">
+
+
+                    <div th:if="${transaction.status.name() == 'SUCCEEDED'}"
+                         class="result-icon success">
+
+                        ✓
+
+                    </div>
+
+
+                    <div th:if="${transaction.status.name() == 'FAILED'}"
+                         class="result-icon failed">
+
+                        ×
+
+                    </div>
+
+
+                    <div th:if="${transaction.status.name() == 'SUCCEEDED'}">
+
+                        <h1>
+                            Successful transaction
+                        </h1>
+
+                        <p class="result-description">
+                            We've successfully processed your transfer!
+                            Thank you for using Chibi Wallet!
+                        </p>
+
+                    </div>
+
+
+                    <div th:if="${transaction.status.name() == 'FAILED'}">
+
+                        <h1>
+                            Transaction failed
+                        </h1>
+
+                        <p class="result-description">
+                            We couldn't process your transfer.
+                            Please check the details below.
+                        </p>
+
+                    </div>
+
+
+                    <div class="transaction-summary">
+
+
+                        <div class="summary-row">
+
+                            <span>
+                                Product:
+                            </span>
+
+                            <strong>
+
+                                <span th:text="${transaction.description}">
+                                </span>
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="summary-row">
+
+                            <span>
+                                Amount:
+                            </span>
+
+                            <strong>
+
+                                <span th:text="${transaction.amount + ' ' + ${transaction.currency}}" >
+
+                                </span>
+
+                                EUR
+
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="transaction-id">
+
+                        <span>
+                            Transaction id:
+                        </span>
+
+                        <strong th:text="${transaction.uuid}">
+                            0642dd9b-bd24-48c6-b874-87d02be410ec
+                        </strong>
+
+                    </div>
+
+
+                    <div th:if="${transaction.failureReason != null}"
+                         class="failure-reason">
+
+                        <span>
+                            Reason:
+                        </span>
+
+                        <strong th:text="${transaction.failureReason}">
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-button-container">
+
+                        <a href="/transfers"
+                           class="result-back-button">
+
+                            Go back ←
+
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <div class="chibi-message">
+
+                <span>
+                    ✦ ☁ ✦
+                </span>
+
+                <p>
+                    Your Chibi Wallet is ready to use!
+                </p>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

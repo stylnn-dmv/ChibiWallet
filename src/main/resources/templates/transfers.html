@@ -136,15 +136,15 @@
                             </label>
 
                             <select id="wallet"
-                                    name="wallet"
+                                    th:field="*{fromWalletsId}"
                                     required>
 
-                                <option value="" disabled="">
+                                <option value="" disabled>
                                     Select a wallet
                                 </option>
 
                                 <option th:each = "wallet : ${user.wallets}" th:value="${wallet.id}" th:text = "${'Strandard Wallet -' + wallet.balance + 'EUR'}">
-                                    Standard Wallet - 36.03 EUR
+
                                 </option>
 
                             </select>
@@ -192,12 +192,12 @@
 
                             <span class="error"
                                   th:if="${#fields.hasErrors('amount')}"
-                                  th:errors="*{amount}">>
+                                  th:errors="*{amount}">
                 </span>
 
                         </div>
                         <button type="submit"
-                                class="send-button">
+                                class="send-button" >
                             Send ✈
                         </button>
 

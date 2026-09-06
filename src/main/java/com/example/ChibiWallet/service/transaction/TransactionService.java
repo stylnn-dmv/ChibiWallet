@@ -1,5 +1,7 @@
 package com.example.ChibiWallet.service.transaction;
 
+import com.example.ChibiWallet.mapper.transaction.TransactionMapper;
+import com.example.ChibiWallet.model.dto.transaction.TransactionDto;
 import com.example.ChibiWallet.model.entity.transaction.Transaction;
 import com.example.ChibiWallet.model.entity.transaction.TransactionStatus;
 import com.example.ChibiWallet.model.entity.transaction.TransactionType;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.UUID;
 
 @Service
 public class TransactionService {
@@ -48,5 +51,11 @@ public class TransactionService {
                 .build();
 
         return transactionRepository.save(transaction);
+    }
+
+    public TransactionDto getById(String id) {
+        Transaction transaction =transactionRepository.findById(UUID.fromString(id))
+                .orElseThrow(() -> new RuntimeException("Transaction not found with id " + id ));
+        return TransactionMapper.toDto(transaction);
     }
 }
