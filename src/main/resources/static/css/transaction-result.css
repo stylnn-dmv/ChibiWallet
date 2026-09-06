@@ -19,7 +19,7 @@
 
     box-sizing: border-box;
 
-    background: #ffffff;
+    background: #4c68a8;
 
     border-radius: 9px;
 
@@ -51,7 +51,7 @@
 
     font-weight: bold;
 
-    color: white;
+    color: #338fd0;
 
     box-shadow:
             0 5px 12px rgba(25, 38, 85, 0.18);
@@ -269,30 +269,4 @@
 
     box-shadow:
             0 6px 12px rgba(25, 45, 100, 0.28);
-}
-
-
-
-
-@media (max-width: 700px) {
-
-    .transaction-result-card {
-        width: 100%;
-
-        padding: 45px 20px;
-    }
-
-    .transaction-summary,
-    .failure-reason {
-        width: 100%;
-
-        max-width: 290px;
-    }
-
-    .transaction-id {
-        flex-direction: column;
-
-        gap: 3px;
-    }
-
 }
