@@ -1,37 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--    <h1>Menu</h1>-->
-
-<!--    <h1>Welcome, <span th:text = "${username}"></span></h1>-->
-<!--    <a href = "/main?logout">Log out</a>-->
-<!--    <nav>-->
-<!--        <ul>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="/home">Home</a> </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="/transactions">Transactions</a></li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link"href="/balance">Balance</a></li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="/history">History</a></li>-->
-<!--        </ul>-->
-<!--    </nav>-->
-
-<!--    <h2 class="profile-name" th:text = "${user.getUsername()}"></h2>-->
-<!--    <p class="active-profile" th:text = "${user.isActive() ? 'ACTIVE' : 'INACTIVE'}" > </p>-->
-<!--    <strong>User id:</strong>-->
-<!--    <p th:text="${user.getId()}"> </p>-->
-<!--    <p th:text = "${user.getEmail()}"></p>-->
-<!--    <p th:text = "${user.getCountry()}"></p>-->
-<!--</body>-->
-<!--</html>-->
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -69,9 +35,6 @@
 
     <div class="app-layout">
 
-
-
-
         <aside class="sidebar">
 
             <div class="menu-title">
@@ -85,6 +48,11 @@
                     Home
                 </a>
 
+                <a href="/wallets" class="nav-link">
+                    <span>▣</span>
+                    Wallets
+                </a>
+
                 <a href="/transactions" class="nav-link">
                     <span>↔</span>
                     Transactions
@@ -95,14 +63,17 @@
                     Balance
                 </a>
 
-                <a href="/history" class="nav-link">
+                <a href="/transfers" class="nav-link">
+                    <span>%</span>
+                    Balance
+                </a>
+
+                <a href="/subscriptions/history" class="nav-link">
                     <span>◷</span>
-                    History
+                    Subscription History
                 </a>
 
             </nav>
-
-
             <div class="sidebar-footer">
 
                 <div class="footer-cloud">
@@ -121,9 +92,6 @@
 
 
         <main class="main-content">
-
-
-
 
             <section class="welcome-section">
 
@@ -271,6 +239,10 @@
                         <a th:href="@{users/{id}/profile(id=${user.getId()})}" class="edit-profile-button" >
                             ✎ Edit Profile
                         </a>
+
+<!--                        <a th:href="@{users/{id}/profile(id=${user.getId()})}" class="edit-profile-button" >-->
+<!--                            ✎ Edit Profile-->
+<!--                        </a>-->
                     </div>
 
                 </article>
@@ -338,6 +310,11 @@
 
                                 Transactions
 
+                            </a>
+
+                            <a href="/wallets"
+                               class="primary-button">
+                                Open Wallets
                             </a>
 
                         </div>

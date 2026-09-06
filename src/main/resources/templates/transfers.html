@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chibi Wallet - Transfers</title>
+
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/transfers.css}">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+
+    <header class="top-bar">
+
+        <div class="brand">
+            <span class="cloud">☁</span>
+            <h1>Chibi Wallet</h1>
+        </div>
+
+        <div class="version">
+            v1.0.0
+        </div>
+
+    </header>
+
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+
+            <div class="menu-title">
+                Menu
+            </div>
+
+            <nav>
+
+                <a href="/home" class="nav-link">
+                    <span>⌂</span>
+                    Home
+                </a>
+
+                <a href="/wallets" class="nav-link">
+                    <span>▣</span>
+                    Wallets
+                </a>
+
+                <a href="/transfers" class="nav-link active">
+                    <span>↔</span>
+                    Transfers
+                </a>
+
+                <a href="/transactions" class="nav-link">
+                    <span>↕</span>
+                    Transactions
+                </a>
+
+                <a href="/balance" class="nav-link">
+                    <span>◉</span>
+                    Balance
+                </a>
+
+                <a href="/subscriptions/history" class="nav-link">
+                    <span>◷</span>
+                    Subscription History
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+
+                <div class="footer-cloud">
+                    ☁
+                </div>
+
+                <h3>Save smart,</h3>
+
+                <p>
+                    live happy ✨
+                </p>
+
+            </div>
+
+        </aside>
+
+
+
+        <main class="main-content">
+
+            <section class="welcome-section">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        TRANSFERS
+                    </p>
+
+                    <h2>
+                        Transfer Funds
+                    </h2>
+
+                    <p class="welcome-text">
+                        Send money securely to another user.
+                    </p>
+
+                </div>
+
+                <a href="/home" class="logout-button">
+                    ← Back
+                </a>
+
+            </section>
+
+
+
+            <section class="transfer-section">
+
+                <div class="transfer-card">
+
+                    <h1>
+                        Transfer Funds
+                    </h1>
+
+
+                    <form th:action="@{/transfers}" th:method="post" th:object="${transferRequest}">
+                        <div class="form-group">
+
+                            <label for="wallet">
+                                Select Wallet
+                            </label>
+
+                            <select id="wallet"
+                                    name="wallet"
+                                    required>
+
+                                <option value="" disabled="">
+                                    Select a wallet
+                                </option>
+
+                                <option th:each = "wallet : ${user.wallets}" th:value="${wallet.id}" th:text = "${'Strandard Wallet -' + wallet.balance + 'EUR'}">
+                                    Standard Wallet - 36.03 EUR
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label for="recipient">
+                                Recipient Username
+                            </label>
+
+                            <input type="text"
+                                   id="recipient"
+                                   name="recipient"
+                                   placeholder="Enter recipient's username"
+                                   th:field="*{toUsername}"
+                                   required>
+
+                            <span class="error"
+                                  th:if="${#fields.hasErrors('toUsername')}"
+                                  th:errors="*{toUsername}">
+                </span>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label for="amount">
+                                Amount
+                            </label>
+
+                            <input type="number"
+                                   id="amount"
+                                   name="amount"
+                                   step="0.01"
+                                   min="0.01"
+                                   placeholder="Enter amount to send"
+                                   th:field="*{amount}"
+                                   required>
+
+                            <span class="error"
+                                  th:if="${#fields.hasErrors('amount')}"
+                                  th:errors="*{amount}">>
+                </span>
+
+                        </div>
+                        <button type="submit"
+                                class="send-button">
+                            Send ✈
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+            <div class="chibi-message">
+
+                <span>
+                    ✦ ☁ ✦
+                </span>
+
+                <p>
+                    Send money safely and easily!
+                </p>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

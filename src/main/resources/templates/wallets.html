@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chibi Wallet - Wallets</title>
+
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <header class="top-bar">
+
+        <div class="brand">
+            <span class="cloud">☁</span>
+            <h1>Chibi Wallet</h1>
+        </div>
+
+        <div class="version">
+            v1.0.0
+        </div>
+
+    </header>
+
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+
+            <div class="menu-title">
+                Menu
+            </div>
+
+            <nav>
+
+                <a href="/home" class="nav-link">
+                    <span>⌂</span>
+                    Home
+                </a>
+
+                <a href="/wallets" class="nav-link active">
+                    <span>▣</span>
+                    Wallets
+                </a>
+
+                <a href="/transactions" class="nav-link">
+                    <span>↔</span>
+                    Transactions
+                </a>
+
+                <a href="/balance" class="nav-link">
+                    <span>◉</span>
+                    Balance
+                </a>
+
+                <a href="/subscriptions/history" class="nav-link">
+                    <span>◷</span>
+                    Subscription History
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <div class="footer-cloud">
+                    ☁
+                </div>
+
+                <h3>Save smart,</h3>
+
+                <p>
+                    live happy ✨
+                </p>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+
+            <section class="welcome-section">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        WALLETS
+                    </p>
+
+                    <h2>
+                        Your Wallets
+                    </h2>
+
+                    <p class="welcome-text">
+                        Manage and open your wallets.
+                    </p>
+
+                </div>
+
+                <a href="/home" class="logout-button">
+                    ← Back
+                </a>
+
+            </section>
+
+
+            <section class="dashboard-grid">
+
+                <div class="right-column">
+
+                    <article class="panel wallet-panel">
+
+                        <div class="panel-header">
+                            <h2>My Wallets</h2>
+
+                            <span class="little-cloud">
+                                ☁
+                            </span>
+                        </div>
+
+
+                        <div class="wallet-box">
+
+                            <span class="wallet-cloud cloud-left">
+                                ☁
+                            </span>
+
+                            <span class="wallet-cloud cloud-right">
+                                ☁
+                            </span>
+
+                            <div class="wallet-content">
+
+                                <p>
+                                    STANDARD WALLET
+                                </p>
+
+                                <h2>
+                                    Your wallet,
+                                    <br>
+                                    your money.
+                                </h2>
+
+                                <span>
+                                    Open your wallet to manage your balance and transactions.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="wallet-buttons">
+
+                            <a href="/balance"
+                               class="primary-button">
+                                Open Wallet
+                            </a>
+
+                            <a href="/transactions"
+                               class="secondary-button">
+                                Transactions
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -81,13 +81,14 @@ public class IndexController {
         return new ModelAndView("redirect:/login");
     }
 
-
-
-
-
     @GetMapping("/home")
     public ModelAndView getHomePage(){
-        return new ModelAndView("home");
+        UserDto user = userService.getById("2662debf-73c9-4d54-9c30-a0716fec2629");
+
+        ModelAndView mav = new ModelAndView("home");
+        mav.addObject("user", user);
+
+        return mav;
     }
 
 
