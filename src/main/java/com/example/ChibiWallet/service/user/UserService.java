@@ -76,8 +76,8 @@ public class UserService {
         return userRepository.findAll().stream().map(UserMapper::toUserDto).toList();
     }
 
-    public UserDto getById(String id) {
-        User user = userRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("User not found!"));
+    public UserDto getById(UUID id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
         return UserMapper.toUserDto(user);
     }
 

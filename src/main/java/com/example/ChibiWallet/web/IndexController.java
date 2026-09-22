@@ -7,12 +7,15 @@ import com.example.ChibiWallet.model.dto.user.UserRegisterRequest;
 import com.example.ChibiWallet.model.entity.user.Country;
 import com.example.ChibiWallet.model.entity.user.User;
 import com.example.ChibiWallet.service.user.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.UUID;
 
 
 @Controller
@@ -39,7 +42,7 @@ public class IndexController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login (@Valid UserLoginRequest userLoginRequest,BindingResult bindingResult){
+    public ModelAndView login (@Valid UserLoginRequest userLoginRequest,BindingResult bindingResult, HttpSession session){
         if(bindingResult.hasErrors()){
             ModelAndView mav = new ModelAndView();
             mav.addObject("userLoginRequest", userLoginRequest);
@@ -47,12 +50,9 @@ public class IndexController {
             return mav;
         }
         UserDto userDto = userService.login(userLoginRequest);
+        session.setAttribute("user_id", userDto.getId());
 
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("home");
-        mav.addObject("user", userDto);
-
-        return mav;
+        return new ModelAndView("redirect:/home");
     }
 
     @GetMapping("/register")
@@ -82,13 +82,21 @@ public class IndexController {
     }
 
     @GetMapping("/home")
-    public ModelAndView getHomePage(){
-        UserDto user = userService.getById("2662debf-73c9-4d54-9c30-a0716fec2629");
+    public ModelAndView getHomePage(HttpSession session){
+
+        UUID userId = (UUID) session.getAttribute("user_id");
+        UserDto user = userService.getById(UUID.fromString(userId.toString()));
 
         ModelAndView mav = new ModelAndView("home");
         mav.addObject("user", user);
 
         return mav;
+    }
+
+    @GetMapping("/logout")
+    public ModelAndView getLogoutPage(HttpSession session){
+        session.invalidate();
+        return new ModelAndView("redirect:/login");
     }
 
 

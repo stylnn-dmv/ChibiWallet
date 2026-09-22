@@ -2,10 +2,15 @@ package com.example.ChibiWallet.web.subscription;
 
 import com.example.ChibiWallet.model.dto.user.UserDto;
 import com.example.ChibiWallet.service.user.UserService;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.UUID;
 
 
 @Controller
@@ -25,8 +30,10 @@ public class SubscriptionController {
     }
 
     @GetMapping("/history")
-    public ModelAndView getSubscriptionHistoryPage() {
-        UserDto user = userService.getById("2662debf-73c9-4d54-9c30-a0716fec2629");
+    public ModelAndView getSubscriptionHistoryPage(HttpSession session) {
+
+        UUID id = (UUID) session.getAttribute("user_id");
+        UserDto user = userService.getById(id);
 
 
         ModelAndView mav = new ModelAndView("subscriptions-history");
