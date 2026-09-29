@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transactions</title>
+
+    <link rel="stylesheet" th:href="@{/css/transactions.css}">
+</head>
+
+<body>
+
+<div class="top-bar">
+
+    <div class="brand">
+        <span class="cloud">☁</span>
+
+        <h1>Chibi Wallet</h1>
+    </div>
+
+</div>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <div class="menu-title">
+            Menu
+        </div>
+
+        <nav>
+
+            <a href="/home" class="nav-link">
+                <span>⌂</span>
+                Home
+            </a>
+
+            <a href="/wallets" class="nav-link">
+                <span>▣</span>
+                Wallets
+            </a>
+
+            <a href="/transactions" class="nav-link active">
+                <span>↔</span>
+                Transactions
+            </a>
+
+            <a href="/balance" class="nav-link">
+                <span>◉</span>
+                Balance
+            </a>
+
+            <a href="/subscriptions/history" class="nav-link">
+                <span>◷</span>
+                Subscription History
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <div class="footer-cloud">
+                ☁
+            </div>
+
+            <h3>Save smart,</h3>
+
+            <p>
+                live happy ✨
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <main class="transactions-main">
+
+        <div class="transactions-container">
+
+            <table class="styled-table">
+
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                    <th>Balance</th>
+                    <th>Note</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="transaction : ${transactions}">
+
+                    <td class="transaction-id"
+                        th:text="${transaction.uuid}">
+                    </td>
+
+                    <td>
+
+                        <p th:if="${transaction.status.name() == 'FAILED'}"
+                           class="status-terminated">
+                            FAILED
+                        </p>
+
+                        <p th:if="${transaction.status.name() == 'SUCCEEDED'}"
+                           class="status-active">
+                            SUCCEEDED
+                        </p>
+
+                    </td>
+
+                    <td class="transaction-amount"
+                        th:text="${transaction.type.name() == 'DEPOSIT'
+                        ? '+' + transaction.amount + ' ' + transaction.getCurrency()
+                        : '-' + transaction.amount + ' ' + transaction.getCurrency()}">
+                    </td>
+
+                    <td class="transaction-balance"
+                        th:text="${transaction.balanceLeft + ' ' + transaction.getCurrency()}">
+                    </td>
+
+                    <td class="transaction-description"
+                        th:text="${transaction.status.name() == 'FAILED'
+                        ? transaction.failureReason
+                        : transaction.description}">
+                    </td>
+
+                    <td class="transaction-date"
+                        th:text="${#temporals.format(transaction.createdOn, 'dd MM yyyy HH:mm')}">
+                    </td>
+
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(transactions)}">
+
+                    <td colspan="6" class="no-transactions">
+                        No transactions found.
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

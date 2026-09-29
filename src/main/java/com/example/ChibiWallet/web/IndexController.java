@@ -7,6 +7,9 @@ import com.example.ChibiWallet.model.dto.user.UserRegisterRequest;
 import com.example.ChibiWallet.model.entity.user.Country;
 import com.example.ChibiWallet.model.entity.user.User;
 import com.example.ChibiWallet.service.user.UserService;
+import com.sun.net.httpserver.HttpServer;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -42,7 +45,7 @@ public class IndexController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login (@Valid UserLoginRequest userLoginRequest,BindingResult bindingResult, HttpSession session){
+    public ModelAndView login (@Valid UserLoginRequest userLoginRequest, BindingResult bindingResult, HttpSession session, HttpServletResponse response){
         if(bindingResult.hasErrors()){
             ModelAndView mav = new ModelAndView();
             mav.addObject("userLoginRequest", userLoginRequest);

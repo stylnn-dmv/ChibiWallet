@@ -6,11 +6,13 @@ import com.example.ChibiWallet.model.entity.user.Country;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import java.util.List;
 
 @Slf4j
 @Component
+@ControllerAdvice
 public class UserInit implements CommandLineRunner {
     private UserService userService;
 
@@ -30,7 +32,11 @@ public class UserInit implements CommandLineRunner {
                 .country(Country.BULGARIA)
                 .build();
 
+
+        //Todo: create registerAdmin Method
         userService.register(userRegisterRequest);
+        userService.registerAdmin(userRegisterRequest);
+
 
         log.info("Default user(%s) registered successfully".formatted(userRegisterRequest.getUsername()));
     }

@@ -1,0 +1,465 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #829bcf;
+    color: #101f3f;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+}
+
+
+
+.top-bar {
+    height: 105px;
+
+    background: #8da5d5;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+
+    border-top: 28px solid #123b98;
+    border-bottom: 2px solid #163d91;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand .cloud {
+    font-size: 28px;
+    color: #153d91;
+}
+
+.brand h1 {
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    color: #101f3f;
+}
+
+.back-button {
+    text-decoration: none;
+
+    padding: 7px 15px;
+
+    border: 1px solid #23458d;
+
+    border-radius: 2px;
+
+    color: white;
+    background: #365aa0;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    box-shadow: 2px 2px 0 #23447f;
+
+    transition: 0.15s ease;
+}
+
+.back-button:hover {
+    background: #294d96;
+}
+
+
+
+.users-page {
+    max-width: 1250px;
+
+    margin: 0 auto;
+
+    padding: 40px 30px 70px;
+}
+
+
+
+.page-title {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+}
+
+.page-title p {
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    color: #234a98;
+
+    margin-bottom: 7px;
+}
+
+.page-title h2 {
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 34px;
+    font-weight: 700;
+
+    color: #101f3f;
+
+    margin-bottom: 7px;
+}
+
+.page-title span {
+    color: #304875;
+
+    font-size: 14px;
+}
+
+
+
+
+.user-count {
+    min-width: 105px;
+
+    padding: 12px 18px;
+
+    border-radius: 0;
+
+    background: #8da6d6;
+
+    border: 1px solid #315795;
+
+    text-align: center;
+
+    box-shadow: 3px 3px 0 #5875aa;
+}
+
+.user-count span {
+    display: block;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    color: #102044;
+}
+
+.user-count small {
+    color: #304875;
+
+    font-size: 11px;
+}
+
+
+.users-card {
+    background: #829bcf;
+
+    border: 2px solid #31558f;
+
+    border-radius: 0;
+
+    overflow: hidden;
+
+    box-shadow: 5px 5px 0 #5875aa;
+}
+
+
+.card-header {
+    padding: 22px 25px;
+
+    border-bottom: 1px solid #3b5f9b;
+
+    background: #829bcf;
+}
+
+.card-header h3 {
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 20px;
+
+    color: #101f3f;
+
+    margin-bottom: 5px;
+}
+
+.card-header p {
+    color: #304875;
+
+    font-size: 13px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    max-width: none;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 850px;
+}
+
+thead {
+    background: #718bc2;
+}
+
+th {
+    padding: 14px 20px;
+
+    text-align: left;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    color: #173b82;
+
+    border-bottom: 2px solid #3c609a;
+}
+
+td {
+    padding: 17px 20px;
+
+    border-bottom: 1px solid #5976aa;
+
+    font-size: 13px;
+
+    color: #14284d;
+}
+
+tbody tr {
+    transition: background 0.15s ease;
+}
+
+tbody tr:hover {
+    background: #8ca5d4;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #b0c2e5;
+
+    border: 2px solid #294e92;
+
+    color: #173d8b;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    flex-shrink: 0;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.user-name {
+    display: flex;
+    flex-direction: column;
+    color: #17326b;
+
+    gap: 3px;
+}
+
+.user-name strong {
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 14px;
+
+    color: #102044;
+}
+
+.user-name span {
+    font-size: 11px;
+
+    color: #405783;
+}
+
+
+.email {
+    color: #263e69;
+}
+
+.country {
+    color: #263e69;
+}
+
+
+.user-id {
+    font-family: monospace;
+
+    color: #304a7b;
+
+    background: #718bc2;
+
+    padding: 5px 8px;
+
+    border-radius: 2px;
+
+    border: 1px solid #5773a7;
+
+    font-size: 11px;
+}
+
+
+.status {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 9px;
+
+    border-radius: 2px;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+}
+
+.status-active {
+    background: #a9d5a8;
+
+    color: #174c2a;
+
+    border: 1px solid #4e8a56;
+}
+
+.status-active::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #3b8144;
+
+    margin-right: 6px;
+}
+
+
+.status-terminated {
+    background: #f5c6c6;
+    color: #9b1c1c;
+    border: 1px solid #b83a3a;
+}
+
+.status-terminated::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #b83a3a;
+
+    margin-right: 6px;
+}
+
+
+.view-button {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border-radius: 2px;
+
+    background: #294d96;
+
+    border: 1px solid #193a7e;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    box-shadow: 2px 2px 0 #1b3974;
+
+    transition: 0.15s ease;
+}
+
+.view-button:hover {
+    background: #1f438b;
+
+    color: white;
+}
+
+
+
+.empty-state {
+    text-align: center;
+
+    padding: 60px 20px;
+}
+
+.empty-icon {
+    font-size: 38px;
+
+    margin-bottom: 15px;
+
+    color: #244b96;
+}
+
+.empty-state h3 {
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 20px;
+
+    color: #102044;
+
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: #405783;
+
+    font-size: 13px;
+}
+

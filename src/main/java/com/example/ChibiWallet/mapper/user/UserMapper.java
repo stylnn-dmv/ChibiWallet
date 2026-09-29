@@ -50,6 +50,23 @@ public class UserMapper {
 
     }
 
+    public static User toAdminEntity(UserRegisterRequest userRegisterRequest){
+        if(userRegisterRequest == null){
+            return null;
+        }
+        return User.builder()
+                .username(userRegisterRequest.getUsername())
+                .password(userRegisterRequest.getPassword())
+                .country(userRegisterRequest.getCountry())
+                .role(UserRole.ADMIN)
+                .isActive(true)
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
+                .build();
+
+    }
+
+
     public static UserDto toUserDto(User user){
         if(user == null){
             return null;

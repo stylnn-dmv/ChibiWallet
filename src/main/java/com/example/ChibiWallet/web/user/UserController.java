@@ -45,4 +45,24 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping()
+    public ModelAndView getAllUsers()
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("users");
+        modelAndView.addObject("users", userService.getAllUsers());
+        return modelAndView;
+    }
+
+    @PutMapping("/{id}/status")
+    public ModelAndView switchUserStatus(@PathVariable String id){
+        userService.switchStatus(UUID.fromString(id));
+        return new ModelAndView("redirect:/users");
+    }
+
+    @PutMapping("{id}/role")
+    public ModelAndView switchUserRole(@PathVariable String id){
+        userService.switchRole(UUID.fromString(id));
+        return new ModelAndView("redirect:/users");
+    }
 }

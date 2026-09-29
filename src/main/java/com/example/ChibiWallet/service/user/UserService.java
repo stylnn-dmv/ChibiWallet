@@ -8,6 +8,7 @@ import com.example.ChibiWallet.model.entity.subscription.Subscription;
 import com.example.ChibiWallet.model.entity.user.EditUserRequest;
 import com.example.ChibiWallet.model.entity.user.User;
 
+import com.example.ChibiWallet.model.entity.user.UserRole;
 import com.example.ChibiWallet.model.entity.wallet.Wallet;
 import com.example.ChibiWallet.repository.user.UserRepository;
 import com.example.ChibiWallet.service.subscription.SubscriptionService;
@@ -60,6 +61,26 @@ public class UserService {
 
         User userEntity = UserMapper.toUserEntity(userRegisterRequest);
 
+        Subscription defualtSubscription = subscriptionService.createDefaultSubscription(userEntity);
+        userEntity.setSubscriptions(List.of(defualtSubscription));
+
+        Wallet defaultWallet = walletService.createDefaultWallet(userEntity);
+        userEntity.setWallets(List.of(defaultWallet));
+
+        userRepository.save(userEntity);
+
+        return UserMapper.toUserDto(userEntity);
+    }
+
+    public UserDto registerAdmin(UserRegisterRequest userRegisterRequest) {
+        userRepository.findByUsername(userRegisterRequest.getUsername()).ifPresent(user -> {throw new RuntimeException("User with this username already exists!");} );
+
+
+        String encodedPassword = passwordEncoder.encode(userRegisterRequest.getPassword());
+        userRegisterRequest.setPassword(encodedPassword);
+
+
+        User userEntity = UserMapper.toAdminEntity(userRegisterRequest);
 
         Subscription defualtSubscription = subscriptionService.createDefaultSubscription(userEntity);
         userEntity.setSubscriptions(List.of(defualtSubscription));
@@ -71,6 +92,8 @@ public class UserService {
 
         return UserMapper.toUserDto(userEntity);
     }
+
+
 
     public List<UserDto> findAll(){
         return userRepository.findAll().stream().map(UserMapper::toUserDto).toList();
@@ -92,5 +115,27 @@ public class UserService {
 
         User updatedUser = userRepository.save(entity);
         return UserMapper.toUserDto(updatedUser);
+    }
+
+    public List<UserDto> getAllUsers(){
+        return userRepository.findAll().
+                stream().
+                map(UserMapper::toUserDto).
+                toList();
+    }
+    public void switchStatus(UUID id){
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
+        user.setActive(!user.isActive());
+        userRepository.save(user);
+    }
+
+    public void switchRole(UUID id){
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
+        if(user.getRole() == UserRole.USER){
+            user.setRole(UserRole.ADMIN);
+        }else {
+            user.setRole(UserRole.USER);
+        }
+        userRepository.save(user);
     }
 }

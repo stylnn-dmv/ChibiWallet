@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports | Chibi Wallet</title>
+
+    <link rel="stylesheet" th:href="@{/css/reports.css}">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <header class="top-bar">
+
+        <div class="brand">
+            <span class="cloud">☁</span>
+            <h1>Chibi Wallet</h1>
+        </div>
+
+        <a href="/home" class="back-button">
+            ← Back to Dashboard
+        </a>
+
+    </header>
+
+
+    <main class="reports-page">
+
+        <div class="page-title">
+
+            <div>
+                <p>ANALYTICS</p>
+
+                <h2>Reports</h2>
+
+                <span>
+                    Overview of your Chibi Wallet activity.
+                </span>
+            </div>
+
+        </div>
+
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        TOTAL USERS
+                    </span>
+
+                    <strong th:text="${totalUsers}">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    💳
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        TOTAL WALLETS
+                    </span>
+
+                    <strong th:text="${totalWallets}">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ↔
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        TRANSACTIONS
+                    </span>
+
+                    <strong th:text="${totalTransactions}">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    €
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        TOTAL VOLUME
+                    </span>
+
+                    <strong>
+                        €<span th:text="${totalVolume}">0.00</span>
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="reports-grid">
+
+
+            <div class="report-card transaction-overview">
+
+                <div class="report-header">
+
+                    <div>
+                        <h3>Transaction Overview</h3>
+
+                        <p>
+                            Transaction activity over time.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="chart">
+
+                    <div class="chart-y-axis">
+                        <span>100</span>
+                        <span>75</span>
+                        <span>50</span>
+                        <span>25</span>
+                        <span>0</span>
+                    </div>
+
+                    <div class="chart-area">
+
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+
+                        <div class="bars">
+
+                            <div class="bar-wrapper">
+                                <div class="bar" style="height: 35%;"></div>
+                                <span>Jan</span>
+                            </div>
+
+                            <div class="bar-wrapper">
+                                <div class="bar" style="height: 52%;"></div>
+                                <span>Feb</span>
+                            </div>
+
+                            <div class="bar-wrapper">
+                                <div class="bar" style="height: 44%;"></div>
+                                <span>Mar</span>
+                            </div>
+
+                            <div class="bar-wrapper">
+                                <div class="bar" style="height: 70%;"></div>
+                                <span>Apr</span>
+                            </div>
+
+                            <div class="bar-wrapper">
+                                <div class="bar" style="height: 62%;"></div>
+                                <span>May</span>
+                            </div>
+
+                            <div class="bar-wrapper">
+                                <div class="bar" style="height: 82%;"></div>
+                                <span>Jun</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-card status-report">
+
+                <div class="report-header">
+
+                    <div>
+                        <h3>Transaction Status</h3>
+
+                        <p>
+                            Current transaction results.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="status-content">
+
+                    <div class="donut">
+
+                        <div class="donut-inner">
+
+                            <strong th:text="${successfulPercentage}">
+                                92%
+                            </strong>
+
+                            <span>
+                                Successful
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-legend">
+
+                        <div class="legend-item">
+
+                            <span class="legend-dot successful"></span>
+
+                            <div>
+                                <strong>Successful</strong>
+                                <span th:text="${successfulTransactions}">
+                                    0 transactions
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="legend-item">
+
+                            <span class="legend-dot failed"></span>
+
+                            <div>
+                                <strong>Failed</strong>
+                                <span th:text="${failedTransactions}">
+                                    0 transactions
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="report-card recent-transactions">
+
+            <div class="report-header">
+
+                <div>
+                    <h3>Recent Transactions</h3>
+
+                    <p>
+                        Latest activity in Chibi Wallet.
+                    </p>
+                </div>
+
+                <a href="/transactions" class="view-all">
+                    View all →
+                </a>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="transaction : ${recentTransactions}">
+
+                        <td>
+                            <span class="transaction-id"
+                                  th:text="${transaction.id}">
+                                #1024
+                            </span>
+                        </td>
+
+                        <td>
+                            <strong
+                                    th:text="${transaction.user.username}">
+                                Username
+                            </strong>
+                        </td>
+
+                        <td>
+                            <span
+                                    th:text="${transaction.type}">
+                                TRANSFER
+                            </span>
+                        </td>
+
+                        <td>
+                            <strong
+                                    th:text="${transaction.amount}">
+                                €100.00
+                            </strong>
+                        </td>
+
+                        <td>
+                            <span class="status status-success">
+                                SUCCESS
+                            </span>
+                        </td>
+
+                        <td>
+                            <span
+                                    th:text="${transaction.date}">
+                                24 Sep 2026
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr th:if="${recentTransactions == null || recentTransactions.isEmpty()}">
+
+                        <td colspan="6">
+
+                            <div class="empty-state">
+
+                                <div>
+                                    📊
+                                </div>
+
+                                <h3>No transactions</h3>
+
+                                <p>
+                                    There is no transaction activity yet.
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

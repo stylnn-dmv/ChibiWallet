@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
@@ -58,4 +60,12 @@ public class TransactionService {
                 .orElseThrow(() -> new RuntimeException("Transaction not found with id " + id ));
         return TransactionMapper.toDto(transaction);
     }
+
+    public List<TransactionDto> getAllByOwnerId(UUID ownerId) {
+        List<Transaction> transactions = transactionRepository.findAllByOwnerId(ownerId);
+        return transactions.stream()
+                .map(TransactionMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 }

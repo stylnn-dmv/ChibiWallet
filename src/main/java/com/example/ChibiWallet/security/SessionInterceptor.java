@@ -17,8 +17,7 @@ import java.util.UUID;
 public class SessionInterceptor implements HandlerInterceptor {
 
     private static final Set<String> UNAUTHENTICATED_ENDPOINTS = Set.of("/","/login","/register","/logout","/error");
-    //"/users","/reports" -> later to add admin panel
-    private static final Set<String> ADMIN_ENDPOINTS = Set.of();
+    private static final Set<String> ADMIN_ENDPOINTS = Set.of("/users","/reports");
     private final UserService userService;
 
     @Autowired
