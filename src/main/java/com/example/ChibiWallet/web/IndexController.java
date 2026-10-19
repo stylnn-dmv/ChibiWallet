@@ -5,20 +5,16 @@ import com.example.ChibiWallet.model.dto.user.UserDto;
 import com.example.ChibiWallet.model.dto.user.UserLoginRequest;
 import com.example.ChibiWallet.model.dto.user.UserRegisterRequest;
 import com.example.ChibiWallet.model.entity.user.Country;
-import com.example.ChibiWallet.model.entity.user.User;
+import com.example.ChibiWallet.service.user.AuthenticationDetailsData;
 import com.example.ChibiWallet.service.user.UserService;
-import com.sun.net.httpserver.HttpServer;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.UUID;
 
 
 @Controller
@@ -44,19 +40,19 @@ public class IndexController {
         return mav;
     }
 
-    @PostMapping("/login")
-    public ModelAndView login (@Valid UserLoginRequest userLoginRequest, BindingResult bindingResult, HttpSession session, HttpServletResponse response){
-        if(bindingResult.hasErrors()){
-            ModelAndView mav = new ModelAndView();
-            mav.addObject("userLoginRequest", userLoginRequest);
-            mav.setViewName("login");
-            return mav;
-        }
-        UserDto userDto = userService.login(userLoginRequest);
-        session.setAttribute("user_id", userDto.getId());
-
-        return new ModelAndView("redirect:/home");
-    }
+//    @PostMapping("/login")
+//    public ModelAndView login (@Valid UserLoginRequest userLoginRequest, BindingResult bindingResult, HttpSession session, HttpServletResponse response){
+//        if(bindingResult.hasErrors()){
+//            ModelAndView mav = new ModelAndView();
+//            mav.addObject("userLoginRequest", userLoginRequest);
+//            mav.setViewName("login");
+//            return mav;
+//        }
+//        UserDto userDto = userService.login(userLoginRequest);
+//        session.setAttribute("user_id", userDto.getId());
+//
+//        return new ModelAndView("redirect:/home");
+//    }
 
     @GetMapping("/register")
     public ModelAndView getRegisterPage(){
@@ -87,8 +83,11 @@ public class IndexController {
     @GetMapping("/home")
     public ModelAndView getHomePage(HttpSession session){
 
-        UUID userId = (UUID) session.getAttribute("user_id");
-        UserDto user = userService.getById(UUID.fromString(userId.toString()));
+        AuthenticationDetailsData principal =(AuthenticationDetailsData) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        UserDto user = userService.getById(principal.getId());
 
         ModelAndView mav = new ModelAndView("home");
         mav.addObject("user", user);
