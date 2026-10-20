@@ -3,15 +3,15 @@ package com.example.ChibiWallet.web.wallet;
 
 import com.example.ChibiWallet.model.dto.user.UserDto;
 import com.example.ChibiWallet.model.dto.wallet.WalletDto;
+import com.example.ChibiWallet.service.user.AuthenticationDetailsData;
 import com.example.ChibiWallet.service.user.UserService;
-import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/wallets")
@@ -25,8 +25,8 @@ public class WalletController {
 
 
     @GetMapping
-    public ModelAndView getWallets(HttpSession session) {
-        UserDto user = userService.getById((UUID) session.getAttribute("user_id"));
+    public ModelAndView getWallets(@AuthenticationPrincipal AuthenticationDetailsData principal) {
+        UserDto user = userService.getById(principal.getId());
         List<WalletDto> wallets = user.getWallets();
         ModelAndView mav = new ModelAndView("wallets");
         mav.addObject("wallets", wallets);

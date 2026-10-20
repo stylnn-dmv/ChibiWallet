@@ -1,0 +1,202 @@
+.admin-content {
+    min-width: 0;
+}
+
+.admin-content .welcome-section {
+    margin-bottom: 26px;
+}
+
+.users-panel {
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+.users-summary {
+    margin: 18px 0;
+    color: #203F76;
+    font-size: 14px;
+}
+
+.users-summary strong {
+    color: #234788;
+    font-size: 17px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #36588F;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.users-table {
+    width: 100%;
+    min-width: 1050px;
+    border-collapse: collapse;
+    table-layout: auto;
+    color: #10284C;
+    font-size: 13px;
+}
+
+.users-table th {
+    padding: 16px 12px;
+    background: #5274B0;
+    color: #FFFFFF;
+    text-align: left;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 2px solid #36588F;
+    white-space: nowrap;
+}
+
+.users-table td {
+    padding: 19px 12px;
+    border-bottom: 1px solid rgba(54, 88, 143, 0.45);
+    vertical-align: middle;
+}
+
+.users-table tbody tr {
+    transition: background 0.18s ease;
+}
+
+.users-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.20);
+}
+
+.users-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.user-id {
+    max-width: 135px;
+    overflow-wrap: anywhere;
+    font-family: monospace;
+    font-size: 11px;
+    color: #304D7B;
+}
+
+.username-cell {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.role-badge,
+.status-badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border: 1px solid;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-align: center;
+}
+
+.role-admin {
+    background: #DCE7FF;
+    color: #234788;
+    border-color: #5274B0;
+}
+
+.role-user {
+    background: #E6E5F4;
+    color: #514A87;
+    border-color: #918AB9;
+}
+
+.status-active {
+    color: #287447;
+    background: #D7EFD8;
+    border-color: #80B78A;
+}
+
+.status-inactive {
+    color: #9B3434;
+    background: #F6DDDD;
+    border-color: #D59A9A;
+}
+
+.date-cell {
+    min-width: 105px;
+    white-space: pre-line;
+    font-size: 12px;
+    color: #304D7B;
+}
+
+.user-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.user-actions form {
+    margin: 0;
+}
+
+.action-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    min-width: 90px;
+    padding: 10px 12px;
+    border: 1px solid #17376F;
+    background: #234788;
+    color: #FFFFFF;
+    font-family: Georgia, serif;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 rgba(16, 40, 76, 0.25);
+    transition: background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.action-button:hover:not(:disabled) {
+    background: #17376F;
+    transform: translateY(-1px);
+}
+
+.action-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.toggle-icon {
+    font-size: 10px;
+}
+
+.empty-state {
+    padding: 35px !important;
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: 15px;
+}
+
+.chibi-message {
+    margin-top: 30px;
+    text-align: center;
+    color: #234788;
+    font-family: Georgia, serif;
+    font-size: 13px;
+}
+
+.chibi-message span {
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .users-panel {
+        padding: 14px;
+    }
+
+    .users-table {
+        min-width: 1050px;
+    }
+
+    .user-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

@@ -24,10 +24,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                                     .permitAll()
                                     .requestMatchers("/","/login","/register","/error")
                                     .permitAll()
+                                    .requestMatchers( "/reports/**")
+                                    .hasRole("ADMIN")
                                     .anyRequest()
                                     .authenticated()
-
-
 
 
                             )

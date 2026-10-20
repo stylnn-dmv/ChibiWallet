@@ -4,10 +4,11 @@ package com.example.ChibiWallet.web.transfer;
 import com.example.ChibiWallet.model.dto.transaction.TransactionDto;
 import com.example.ChibiWallet.model.dto.transfer.TransferRequest;
 import com.example.ChibiWallet.model.dto.user.UserDto;
+import com.example.ChibiWallet.service.user.AuthenticationDetailsData;
 import com.example.ChibiWallet.service.user.UserService;
 import com.example.ChibiWallet.service.wallet.WalletService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +31,8 @@ public class TransferController {
     }
 
     @GetMapping
-    public ModelAndView getTransfersPage(HttpSession session) {
-        UserDto user = userService.getById((UUID)  session.getAttribute("user_id"));
+    public ModelAndView getTransfersPage(@AuthenticationPrincipal AuthenticationDetailsData principal) {
+        UserDto user = userService.getById(principal.getId());
         ModelAndView mav = new ModelAndView("transfers");
         mav.addObject("user", user);
         mav.addObject("transferRequest", TransferRequest.builder().build());
@@ -41,8 +42,8 @@ public class TransferController {
 
 
     @PostMapping
-    public ModelAndView initiateTransfer(@Valid TransferRequest transferRequest, BindingResult bindingResult,HttpSession session) {
-        UserDto user = userService.getById((UUID) session.getAttribute("user_id"));
+    public ModelAndView initiateTransfer(@Valid TransferRequest transferRequest, BindingResult bindingResult,@AuthenticationPrincipal AuthenticationDetailsData principal) {
+        UserDto user = userService.getById(principal.getId());
 
         if (bindingResult.hasErrors()) {
             ModelAndView mav = new ModelAndView("transfers");

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chibi Wallet - Manage Users</title>
+
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/admin-users.css}">
+</head>
+
+<body>
+<div class="page-wrapper">
+
+    <header class="top-bar">
+        <div class="brand">
+            <span class="cloud">☁</span>
+            <h1>Chibi Wallet</h1>
+        </div>
+
+        <div class="version">v1.0.0</div>
+    </header>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <div class="menu-title">Menu</div>
+
+            <nav>
+                <a href="/home" class="nav-link">
+                    <span>⌂</span> Home
+                </a>
+                <a href="/wallets" class="nav-link">
+                    <span>▣</span> Wallets
+                </a>
+                <a href="/transactions" class="nav-link">
+                    <span>↔</span> Transactions
+                </a>
+                <a href="/balance" class="nav-link">
+                    <span>◉</span> Balance
+                </a>
+                <a href="/transfers" class="nav-link">
+                    <span>%</span> Transfers
+                </a>
+                <a href="/subscriptions/history" class="nav-link">
+                    <span>◷</span> Subscription History
+                </a>
+            </nav>
+
+            <div class="admin-section">
+                <div class="menu-title">Admin Panel</div>
+
+                <nav>
+                    <a href="/admin/users"
+                       class="nav-link active">
+                        <span>♟</span> Users
+                    </a>
+                    <a href="/admin/reports" class="nav-link">
+                        <span>▤</span> Reports
+                    </a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="footer-cloud">☁</div>
+                <h3>Save smart,</h3>
+                <p>live happy ✨</p>
+            </div>
+        </aside>
+
+        <main class="main-content admin-content">
+
+            <section class="welcome-section">
+                <div>
+                    <p class="dashboard-label">ADMINISTRATION</p>
+                    <h2>User Management</h2>
+                    <p class="welcome-text">
+                        Manage accounts, permissions and user status.
+                    </p>
+                </div>
+
+                <a href="/logout" class="logout-button">
+                    Log out →
+                </a>
+            </section>
+
+            <section class="panel users-panel">
+
+                <div class="panel-header">
+                    <h2>Registered Users</h2>
+                    <span class="little-cloud">☁</span>
+                </div>
+
+                <div class="users-summary">
+                    <span>
+                        Total users:
+                        <strong th:text="${users.size()}">0</strong>
+                    </span>
+                </div>
+
+                <div class="table-container">
+                    <table class="users-table">
+                        <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Country</th>
+                            <th>Status</th>
+                            <th>Registered</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="account : ${users}">
+                            <td class="user-id"
+                                th:text="${account.id}">
+                                UUID
+                            </td>
+
+                            <td class="username-cell"
+                                th:text="${account.username}">
+                                Username
+                            </td>
+
+                            <td th:text="${account.email != null
+                                ? account.email : '—'}">
+                                Email
+                            </td>
+
+                            <td>
+                                <span class="role-badge"
+                                      th:classappend="${account.role.toString() == 'ADMIN'}
+                                          ? ' role-admin' : ' role-user'"
+                                      th:text="${account.role}">
+                                    USER
+                                </span>
+                            </td>
+
+                            <td th:text="${account.country}">
+                                Country
+                            </td>
+
+                            <td>
+                                <span class="status-badge"
+                                      th:classappend="${account.active}
+                                          ? ' status-active'
+                                          : ' status-inactive'"
+                                      th:text="${account.active}
+                                          ? 'ACTIVE' : 'INACTIVE'">
+                                    ACTIVE
+                                </span>
+                            </td>
+
+                            <td class="date-cell"
+                                th:text="${account.createdOn != null
+                                    ? #temporals.format(account.createdOn,
+                                      'dd MM yyyy HH:mm')
+                                    : '—'}">
+                                Registration date
+                            </td>
+
+                            <td>
+                                <div class="user-actions">
+
+                                    <form th:action="@{/admin/users/{id}/toggle-status(
+                                                    id=${account.id})}"
+                                          method="post">
+                                        <button type="submit"
+                                                class="action-button"
+                                                th:disabled="${account.id == currentUserId}">
+                                            Switch
+                                            <span class="toggle-icon">●</span>
+                                        </button>
+                                    </form>
+
+                                    <form th:action="@{/admin/users/{id}/toggle-role(
+                                                    id=${account.id})}"
+                                          method="post">
+                                        <button type="submit"
+                                                class="action-button role-button"
+                                                th:disabled="${account.id == currentUserId}">
+                                            Role
+                                            <span class="toggle-icon">●</span>
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr th:if="${users.isEmpty()}">
+                            <td colspan="8" class="empty-state">
+                                ☁ No users found yet.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <div class="chibi-message">
+                <span>✦ ☁ ✦</span>
+                <p>Managing your wallet community, one user at a time!</p>
+            </div>
+
+        </main>
+    </div>
+</div>
+</body>
+</html>

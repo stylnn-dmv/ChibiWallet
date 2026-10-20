@@ -132,6 +132,21 @@ a {
     color: #101a35;
 }
 
+.admin-section {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(25, 55, 105, 0.45);
+}
+
+.admin-title {
+    margin-bottom: 12px;
+}
+
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
 
 .sidebar nav {
 

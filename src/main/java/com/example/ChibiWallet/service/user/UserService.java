@@ -14,12 +14,14 @@ import com.example.ChibiWallet.repository.user.UserRepository;
 import com.example.ChibiWallet.service.subscription.SubscriptionService;
 import com.example.ChibiWallet.service.wallet.WalletService;
 import jakarta.transaction.Transactional;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -124,12 +126,15 @@ public class UserService implements UserDetailsService {
                 map(UserMapper::toUserDto).
                 toList();
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
     public void switchStatus(UUID id){
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
         user.setActive(!user.isActive());
         userRepository.save(user);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public void switchRole(UUID id){
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
         if(user.getRole() == UserRole.USER){

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -72,6 +72,32 @@
                     <span>◷</span>
                     Subscription History
                 </a>
+
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="admin-section">
+
+                    <div class="menu-title admin-title">
+                        Admin Panel
+                    </div>
+
+                    <nav class="admin-nav">
+
+                        <a href="/admin/users" class="nav-link">
+                            <span>♟</span>
+                            Users
+                        </a>
+
+                        <a href="/admin/reports" class="nav-link">
+                            <span>▤</span>
+                            Reports
+                        </a>
+
+                    </nav>
+
+                </div>
+
+
+
+
 
             </nav>
             <div class="sidebar-footer">
