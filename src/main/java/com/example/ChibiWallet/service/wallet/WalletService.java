@@ -54,7 +54,7 @@ public class WalletService {
 
     }
 
-    public Transaction topUp(UUID walletId, BigDecimal amount) {
+    public TransactionDto topUp(UUID walletId, BigDecimal amount) {
         Optional<Wallet> optionalWallet = walletRepository.findById(walletId);
         if (optionalWallet.isEmpty()) {
             throw new RuntimeException("Wallet with id %s not found".formatted(walletId));
@@ -62,31 +62,40 @@ public class WalletService {
 
         Wallet wallet = optionalWallet.get();
         String description = "Top up wallet with %.2f".formatted(amount);
+
         if (wallet.getStatus().equals(WalletStatus.INACTIVE)) {
-            return transactionService.createNewTransaction(wallet.getOwner(),
+
+
+          Transaction transaction =transactionService.createNewTransaction(
+                    wallet.getOwner(),
                     "Some Sender",
-                    wallet.getId().toString()
-                    , amount, wallet.getBalance()
-                    , wallet.getCurrency(),
+                    wallet.getId().toString(),
+                    amount,
+                    wallet.getBalance(),
+                    wallet.getCurrency(),
                     TransactionType.DEPOSIT,
                     TransactionStatus.FAILED,
                     description,
                     "Wallet is inactive");
+          return TransactionMapper.toDto(transaction);
         }
+
         wallet.setBalance(wallet.getBalance().add(amount));
         wallet.setUpdatedOn(LocalDateTime.now());
         walletRepository.save(wallet);
 
-        return transactionService.createNewTransaction(
+        Transaction transaction = transactionService.createNewTransaction(
                 wallet.getOwner(),
                 "Some Sender",
-                wallet.getId().toString()
-                , amount, wallet.getBalance()
-                , wallet.getCurrency(),
+                wallet.getId().toString(),
+                amount,
+                wallet.getBalance(),
+                wallet.getCurrency(),
                 TransactionType.DEPOSIT,
                 TransactionStatus.SUCCEEDED,
                 description,
                 null);
+        return TransactionMapper.toDto(transaction);
     }
 
     public Transaction charge(User user, UUID walletId, BigDecimal amount, String chargeDescription) {

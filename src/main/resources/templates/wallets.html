@@ -4,182 +4,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Chibi Wallet - Wallets</title>
 
     <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/wallets.css}">
 </head>
 
 <body>
-
 <div class="page-wrapper">
 
     <header class="top-bar">
-
         <div class="brand">
             <span class="cloud">☁</span>
             <h1>Chibi Wallet</h1>
         </div>
-
-        <div class="version">
-            v1.0.0
-        </div>
-
+        <div class="version">v1.0.0</div>
     </header>
-
 
     <div class="app-layout">
 
         <aside class="sidebar">
-
-            <div class="menu-title">
-                Menu
-            </div>
+            <div class="menu-title">Menu</div>
 
             <nav>
-
-                <a href="/home" class="nav-link">
-                    <span>⌂</span>
-                    Home
+                <a th:href="@{/home}" class="nav-link">
+                    <span>⌂</span> Home
                 </a>
-
-                <a href="/wallets" class="nav-link active">
-                    <span>▣</span>
-                    Wallets
+                <a th:href="@{/wallets}" class="nav-link active">
+                    <span>▣</span> Wallets
                 </a>
-
-                <a href="/transactions" class="nav-link">
-                    <span>↔</span>
-                    Transactions
+                <a th:href="@{/transactions}" class="nav-link">
+                    <span>↔</span> Transactions
                 </a>
-
-                <a href="/balance" class="nav-link">
-                    <span>◉</span>
-                    Balance
+                <a th:href="@{/balance}" class="nav-link">
+                    <span>◉</span> Balance
                 </a>
-
-                <a href="/subscriptions/history" class="nav-link">
-                    <span>◷</span>
-                    Subscription History
+                <a th:href="@{/subscriptions/history}" class="nav-link">
+                    <span>◷</span> Subscription History
                 </a>
-
             </nav>
 
             <div class="sidebar-footer">
-
-                <div class="footer-cloud">
-                    ☁
-                </div>
-
+                <div class="footer-cloud">☁</div>
                 <h3>Save smart,</h3>
-
-                <p>
-                    live happy ✨
-                </p>
-
+                <p>live happy ✨</p>
             </div>
-
         </aside>
 
+        <main class="main-content wallets-page">
 
-        <main class="main-content">
-
-            <section class="welcome-section">
-
+            <section class="wallets-heading">
                 <div>
-
-                    <p class="dashboard-label">
-                        WALLETS
-                    </p>
-
-                    <h2>
-                        Your Wallets
-                    </h2>
-
-                    <p class="welcome-text">
-                        Manage and open your wallets.
-                    </p>
-
+                    <h2>My Wallets <span class="heading-sparkle"></span></h2>
                 </div>
 
-                <a href="/home" class="logout-button">
+                <a th:href="@{/home}" class="wallet-back-button">
                     ← Back
                 </a>
-
             </section>
 
+            <section class="wallets-grid">
 
-            <section class="dashboard-grid">
 
-                <div class="right-column">
+                <article class="wallet-card" th:if="${wallet != null}" th:each = "wallet : ${wallet}">
 
-                    <article class="panel wallet-panel">
+                    <div class="wallet-card-header">
+                        <span class="wallet-type">
+                            STANDARD WALLET
+                        </span>
 
-                        <div class="panel-header">
-                            <h2>My Wallets</h2>
+                        <span class="wallet-status"
+                              th:classappend="${wallet.status != null and wallet.status.name() == 'ACTIVE'} ? ' status-active' : ' status-inactive'"
+                              th:text="${wallet.status != null ? wallet.status.name() : 'UNKNOWN'}">
+                            ACTIVE
+                        </span>
+                    </div>
 
-                            <span class="little-cloud">
-                                ☁
+                    <div class="balance-panel">
+                        <span class="balance-caption">AVAILABLE BALANCE</span>
+
+                        <p class="wallet-balance"
+                           th:text="${wallet.balance + ' ' + wallet.currency}">
+                        </p>
+                        <span class="balance-star star-one">✦</span>
+                        <span class="balance-star star-two">✧</span>
+                    </div>
+
+                    <div class="wallet-actions">
+                        <form th:action="@{'/wallets/' + ${wallet.id} + '/balance/top-up'}" th:method = "put" class="wallet-action wallet-action-primary">
+                            <button type="submit" class="wallet-action-primary">
+                            20.00 <span>↑</span>
+                            </button>
+                        </form>
+
+                        <a th:href="@{/transactions}" class="wallet-action wallet-action-secondary">
+                            Transactions <span>↗</span>
+                        </a>
+                        <form th:action="@{'/wallets/' + ${wallet.id} + '/status'}" th:method = "put" class="wallet-action wallet-action-secondary">
+                            <button type="submit" class="wallet-action-primary">
+                                <p>Switch </p>
+                            </button>
+                        </form>
+
+                    </div>
+
+                    <div class="wallet-metadata">
+                        <p>
+                            <span class="metadata-icon">✿</span>
+                            <strong>Wallet ID:</strong>
+                            <span class="metadata-value"
+                                  th:text="${wallet.id}">
+                                Wallet ID
                             </span>
+                        </p>
+
+                        <p>
+                            <span class="metadata-icon"></span>
+                            <strong>Created:</strong>
+                            <span class="metadata-value"
+                                  th:text="${wallet.createdOn != null ? wallet.createdOn : 'Not available'}">
+                                Creation date
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="activity-section">
+                        <div class="activity-heading">
+                            <h3>Recent Activity <span></span></h3>
+                            <span class="activity-caption">Money moves</span>
                         </div>
 
-
-                        <div class="wallet-box">
-
-                            <span class="wallet-cloud cloud-left">
-                                ☁
-                            </span>
-
-                            <span class="wallet-cloud cloud-right">
-                                ☁
-                            </span>
-
-                            <div class="wallet-content">
-
-                                <p>
-                                    STANDARD WALLET
-                                </p>
-
-                                <h2>
-                                    Your wallet,
-                                    <br>
-                                    your money.
-                                </h2>
-
-                                <span>
-                                    Open your wallet to manage your balance and transactions.
-                                </span>
-
-                            </div>
-
+                        <div class="activity-empty">
+                            <span class="empty-activity-icon"></span>
+                            <strong>No transactions yet!</strong>
+                            <p>Your money adventures will appear here.</p>
                         </div>
+                    </div>
 
+                </article>
 
-                        <div class="wallet-buttons">
+                <a th:href="@{/wallets/new}"
+                   class="add-wallet-card"
+                   aria-label="Create another wallet">
 
-                            <a href="/balance"
-                               class="primary-button">
-                                Open Wallet
-                            </a>
+                    <span class="add-wallet-plus">+</span>
 
-                            <a href="/transactions"
-                               class="secondary-button">
-                                Transactions
-                            </a>
+                    <span class="add-wallet-title">Add a wallet</span>
 
-                        </div>
+                    <span class="add-wallet-description">
+                        A little space for your next money goal.
+                    </span>
 
-                    </article>
+                    <span class="add-wallet-hint">
+                        Create wallet <span>→</span>
+                    </span>
 
-                </div>
-
+                </a>
             </section>
-
         </main>
-
     </div>
-
 </div>
-
 </body>
 </html>

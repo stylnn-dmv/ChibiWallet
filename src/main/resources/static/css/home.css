@@ -132,6 +132,119 @@ a {
     color: #101a35;
 }
 
+
+/* Wallet status and balance */
+
+.wallet-details {
+    margin: 18px 0;
+    padding: 14px 16px;
+    border: 1px solid #36588F;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 3px 3px 0 rgba(16, 40, 76, 0.12);
+}
+
+.wallet-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(54, 88, 143, 0.4);
+}
+
+.wallet-label {
+    color: #203F76;
+    font-size: 13px;
+}
+
+.wallet-details .status {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.wallet-details .status-active {
+    color: #246B3D;
+    background: #CDE9CF;
+    border-color: #76AE80;
+}
+
+.wallet-details .status-inactive {
+    color: #963A3A;
+    background: #F3D8D8;
+    border-color: #D29A9A;
+}
+
+.wallet-balance {
+    padding-top: 12px;
+}
+
+.wallet-balance .balance {
+    margin: 7px 0 0;
+    color: #10284C;
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.wallet-details {
+    margin: 18px 0;
+    padding: 14px 16px;
+    border: 1px solid #36588F;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 3px 3px 0 rgba(16, 40, 76, 0.12);
+}
+
+.wallet-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(54, 88, 143, 0.4);
+}
+
+.wallet-label {
+    color: #203F76;
+    font-size: 13px;
+}
+
+.wallet-details .status {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.wallet-details .status-active {
+    color: #246B3D;
+    background: #CDE9CF;
+    border-color: #76AE80;
+}
+
+.wallet-details .status-inactive {
+    color: #963A3A;
+    background: #F3D8D8;
+    border-color: #D29A9A;
+}
+
+.wallet-details .wallet-balance {
+    padding-top: 12px;
+}
+
+.wallet-details .balance {
+    margin: 7px 0 0;
+    color: #10284C;
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 .admin-section {
     margin-top: 22px;
     padding-top: 16px;
