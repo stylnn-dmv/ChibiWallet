@@ -2,6 +2,7 @@ package com.example.ChibiWallet.service.transaction;
 
 import com.example.ChibiWallet.mapper.transaction.TransactionMapper;
 import com.example.ChibiWallet.model.dto.transaction.TransactionDto;
+import com.example.ChibiWallet.model.dto.wallet.WalletDto;
 import com.example.ChibiWallet.model.entity.transaction.Transaction;
 import com.example.ChibiWallet.model.entity.transaction.TransactionStatus;
 import com.example.ChibiWallet.model.entity.transaction.TransactionType;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Currency;
 import java.util.List;
 import java.util.UUID;
@@ -65,7 +67,18 @@ public class TransactionService {
         List<Transaction> transactions = transactionRepository.findAllByOwnerId(ownerId);
         return transactions.stream()
                 .map(TransactionMapper::toDto)
+                .sorted(Comparator.comparing(TransactionDto::getCreatedOn).reversed())
                 .collect(Collectors.toList());
     }
 
+    public List<TransactionDto> getLastFourTransactionsByWallet(WalletDto wallet) {
+         return transactionRepository.findAllBySenderOrReceiverOrderByCreatedOnDesc(
+                 wallet.getId().toString(),wallet.getId().toString())
+                 .stream()
+                 .filter(t -> t.getOwner().getId() == wallet.getOwner().getId())
+                 .filter(t -> t.getStatus() == TransactionStatus.SUCCEEDED)
+                 .limit(4)
+                 .map(TransactionMapper::toDto)
+                 .collect(Collectors.toList());
+    }
 }

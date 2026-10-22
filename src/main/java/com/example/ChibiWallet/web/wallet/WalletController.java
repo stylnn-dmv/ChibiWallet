@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -34,11 +35,15 @@ public class WalletController {
 
 
     @GetMapping
-    public ModelAndView getWallets(@AuthenticationPrincipal AuthenticationDetailsData principal) {
+    public ModelAndView getWallets(@AuthenticationPrincipal AuthenticationDetailsData principal, Map map) {
         UserDto user = userService.getById(principal.getId());
         List<WalletDto> wallets = user.getWallets();
+
+        Map<UUID,List<TransactionDto>> lastFourTransactions = walletService.getLastFourTransactions(wallets);
+
         ModelAndView mav = new ModelAndView("wallets");
         mav.addObject("wallet", wallets);
+        mav.addObject("lastFourTransactions", lastFourTransactions);
         return mav;
     }
 
@@ -47,4 +52,14 @@ public class WalletController {
         TransactionDto transaction = walletService.topUp(UUID.fromString(walletId), BigDecimal.valueOf(20));
         return new ModelAndView("redirect:/transactions/" + transaction.getUuid());
     }
+
+
+    @PutMapping("/{walletId}/status")
+    public ModelAndView switchWalletStatus(@PathVariable String walletId, @AuthenticationPrincipal AuthenticationDetailsData principal) {
+        walletService.switchStatus(walletId,principal.getId());
+        return new ModelAndView("redirect:/wallets");
+    }
+
+
+
 }

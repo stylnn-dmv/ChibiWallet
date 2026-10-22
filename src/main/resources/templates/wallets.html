@@ -129,16 +129,27 @@
                     </div>
 
                     <div class="activity-section">
-                        <div class="activity-heading">
-                            <h3>Recent Activity <span></span></h3>
-                            <span class="activity-caption">Money moves</span>
-                        </div>
+                        <div class="activity-heading" th:each="transaction : ${lastFourTransactions.get(wallet.getId())}">
+                            <h3>Recent Activity </h3>
+                            <div>
+                                <p th:text="${transaction.getCreatedOn()}"></p>
+                                <p th:text="${transaction.getDescription()}"></p>
+
+                                <p th:if="${transaction.type.name() == 'DEPOSIT'}"
+                                   th:text="${'+ ' + transaction.getAmount()}">
+                                </p>
+
+                                <p th:if="${transaction.type.name() == 'WITHDRAWAL'}"
+                                   th:text="${'- ' + transaction.getAmount()}">
+                                </p>
+                            </div>
 
                         <div class="activity-empty">
                             <span class="empty-activity-icon"></span>
                             <strong>No transactions yet!</strong>
                             <p>Your money adventures will appear here.</p>
                         </div>
+                    </div>
                     </div>
 
                 </article>

@@ -5,6 +5,7 @@ import com.example.ChibiWallet.mapper.user.UserMapper;
 import com.example.ChibiWallet.model.dto.transaction.TransactionDto;
 import com.example.ChibiWallet.model.dto.transfer.TransferRequest;
 import com.example.ChibiWallet.model.dto.user.UserDto;
+import com.example.ChibiWallet.model.dto.wallet.WalletDto;
 import com.example.ChibiWallet.model.entity.transaction.Transaction;
 import com.example.ChibiWallet.model.entity.transaction.TransactionStatus;
 import com.example.ChibiWallet.model.entity.transaction.TransactionType;
@@ -21,9 +22,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -209,6 +209,39 @@ public class WalletService {
 
     }
 
+    public void switchStatus(String walletId, UUID id) {
+        Optional<Wallet> optionalWallet = walletRepository.findById(UUID.fromString(walletId));
+
+        if(!optionalWallet.isPresent()) {
+            throw new RuntimeException("Wallet with id %s not found".formatted(walletId));
+        }
+
+        Wallet wallet = optionalWallet.get();
+
+        if(!wallet.getOwner().getId().equals(id)) {
+            throw new RuntimeException("You are not authorized to switch the status of this wallet");
+        }
+        if(wallet.getStatus().equals(WalletStatus.ACTIVE)) {
+            wallet.setStatus(WalletStatus.INACTIVE);
+        }else  {
+            wallet.setStatus(WalletStatus.ACTIVE);
+        }
+
+        wallet.setUpdatedOn(LocalDateTime.now());
+        walletRepository.save(wallet);
+    }
+
+    public Map<UUID,List<TransactionDto>> getLastFourTransactions(List<WalletDto> wallets) {
+
+        Map<UUID,List<TransactionDto>> transactionsByWalletId = new HashMap<>();
+
+        for( WalletDto wallet : wallets) {
+            List<TransactionDto> transactions = transactionService.getLastFourTransactionsByWallet(wallet);
+            transactionsByWalletId.put(wallet.getId(), transactions);
+        }
+
+        return transactionsByWalletId;
+    }
 
 //    public void createNewWallet(User user){
 //        Wallet wallet = Wallet.builder()
